@@ -5,23 +5,21 @@ import "./style.css";
 import { generateForeName, generateDay, generateYear, generateMonth, generateBirthday, generateLastName } from './dataGenerator';
 
 class App extends Component {
-  state = {
-    foreNames: [],
-    lastNames: [],
-    birthdays: []
-  }
+  constructor(props) {
+    super(props);
 
-  componentWillMount(){
-    this.fillData();
-  }
+    const personalData = [];
 
-  fillData = () => {
-    for(var i = 0; i < 200; i++){
-      this.state.foreNames.push(generateForeName());
-      this.state.lastNames.push(generateLastName());
-      this.state.birthdays.push(generateBirthday());
+    for (let i = 0; i < 200; i++) {
+        personalData.push({
+            foreName: generateForeName(),
+            lastName: generateLastName(),
+            birthday: generateBirthday()
+        });
     }
-  }
+
+    this.state = { personalData };
+}
 
   render() {
     return (
@@ -32,14 +30,14 @@ class App extends Component {
             <th>Lastname</th> 
             <th>Birthday</th>
           </tr>
-          
-          {this.state.foreNames.map(i =>
+
+          {this.state.personalData.map(i =>
             <tr>
-              <td>{i}</td>
-              <td>i</td> 
-              <td>i</td>
+              <th>{i.foreName}</th>
+              <th>{i.lastName}</th> 
+              <th>{i.birthday}</th>
             </tr>
-          )}
+           )}
         </table>
       </div>
     );

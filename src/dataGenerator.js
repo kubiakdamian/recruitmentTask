@@ -12,7 +12,7 @@ export const generateLastName = () => {
 
 export const generateBirthday = () => {
     var birthday = generateMonth() + "/" + generateDay() + "/" + generateYear();
-    console.log(birthday);
+    return birthday;
 }
 
 const generateDay = () => {
