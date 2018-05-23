@@ -15,6 +15,23 @@ export const generateBirthday = () => {
     return birthday;
 }
 
+export const generatePesel = (date) => {
+    var date = new Date(date);
+    var year = date.getFullYear().toString();
+    var month = addZero(date.getMonth() + 1);
+    var day = addZero(date.getDate());
+
+    var pesel = day + month + year + generateNumberForPesel();
+
+    return pesel;
+}
+
+const generateNumberForPesel = () => {
+    var number = Math.floor(Math.random() * (89999)) + 10000;
+
+    return number.toString();
+}
+
 const generateDay = () => {
     var day = Math.floor(Math.random() * (30)) + 1;
 
@@ -48,3 +65,4 @@ const generateName = (name) => {
 
     return randomName;
 }
+

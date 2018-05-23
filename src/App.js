@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import "./style.css";
-import { generateForeName, generateBirthday, generateLastName } from './dataGenerator';
+import { generateForeName, generateBirthday, generateLastName, generatePesel } from './dataGenerator';
 import styled from "styled-components"
 
 class App extends Component {
@@ -120,6 +120,7 @@ searchData = () => {
                 <Heading onClick = {this.sortByForeNames}>Forename</Heading>
                 <Heading onClick = {this.sortByLastNames}>Lastname</Heading> 
                 <Heading onClick = {this.sortByBirthdays}>Birthday</Heading>
+                <Heading onClick = {this.sortByBirthdays}>Pesel</Heading>
               </tr>
             </thead>
             <tbody>
@@ -128,6 +129,7 @@ searchData = () => {
                   <Row>{i.foreName}</Row>
                   <Row>{i.lastName}</Row> 
                   <Row>{i.birthday}</Row>
+                  <Row>{generatePesel(i.birthday)}</Row>
                 </tr>
               )}
             </tbody>
