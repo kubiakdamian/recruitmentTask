@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import "./style.css";
-import { generateForeName, generateDay, generateYear, generateMonth, generateBirthday, generateLastName } from './dataGenerator';
+import { generateForeName, generateBirthday, generateLastName } from './dataGenerator';
+import styled from "styled-components"
 
 class App extends Component {
   constructor(props) {
@@ -21,14 +21,38 @@ class App extends Component {
     this.state = { personalData };
 }
 
+sortByForeNames = () => {
+  var data = this.state.personalData;
+
+  data.sort(function(obj1, obj2) {
+    return obj1.foreName.localeCompare(obj2.foreName);
+  });
+
+  this.setState({
+    personalData: data
+  })
+}
+
+sortByLastNames = () => {
+  var data = this.state.personalData;
+
+  data.sort(function(obj1, obj2) {
+    return obj1.lastName.localeCompare(obj2.lastName);
+  });
+
+  this.setState({
+    personalData: data
+  })
+}
+
   render() {
     return (
       <div className="App">
         <table style={{width: "100%"}}>
-          <tr>
-            <th>Firstname</th>
-            <th>Lastname</th> 
-            <th>Birthday</th>
+          <tr style={{height: "5vh", backgroundColor: "#a3b2cc"}}>
+            <Heading onClick = {this.sortByForeNames}>Forename</Heading>
+            <Heading onClick = {this.sortByLastNames}>Lastname</Heading> 
+            <Heading>Birthday</Heading>
           </tr>
 
           {this.state.personalData.map(i =>
@@ -45,3 +69,10 @@ class App extends Component {
 }
 
 export default App;
+
+const Heading = styled.th`
+  &:hover{
+    cursor: pointer;
+    background-color: #afb7c6;
+  }
+`
