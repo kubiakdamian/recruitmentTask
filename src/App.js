@@ -107,30 +107,32 @@ searchData = () => {
     this.searchData();
     return (
       <div className="col-lg-8 offset-lg-2">
-      <Search className="col-lg-4 offset-lg-4">
-        <input type="text"
-          class="form-control"
-          placeholder="Search"
-          onChange={this.searchingTextChange}/>
-      </Search>
-        <table class="table table-striped" style={{width: "100%"}}>
-          <thead>
-            <tr style={{backgroundColor: "#a3b2cc"}}>
-              <Heading onClick = {this.sortByForeNames}>Forename</Heading>
-              <Heading onClick = {this.sortByLastNames}>Lastname</Heading> 
-              <Heading onClick = {this.sortByBirthdays}>Birthday</Heading>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.filteredData.map(i =>
-              <tr>
-                <Row>{i.foreName}</Row>
-                <Row>{i.lastName}</Row> 
-                <Row>{i.birthday}</Row>
+        <Search className="col-lg-4 offset-lg-4">
+          <input type="text"
+            class="form-control"
+            placeholder="Search"
+            onChange={this.searchingTextChange}/>
+        </Search>
+        <Table>
+          <table class="table table-striped" style={{width: "100%"}}>
+            <thead>
+              <tr style={{backgroundColor: "#a3b2cc"}}>
+                <Heading onClick = {this.sortByForeNames}>Forename</Heading>
+                <Heading onClick = {this.sortByLastNames}>Lastname</Heading> 
+                <Heading onClick = {this.sortByBirthdays}>Birthday</Heading>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {this.state.filteredData.map(i =>
+                <tr>
+                  <Row>{i.foreName}</Row>
+                  <Row>{i.lastName}</Row> 
+                  <Row>{i.birthday}</Row>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </Table>
       </div>
     );
   }
@@ -145,6 +147,11 @@ const Heading = styled.th`
     cursor: pointer;
     background-color: #afb7c6;
   }
+`
+
+const Table = styled.div`
+  overflow: auto;
+  height: 400px;
 `
 
 const Row = styled.th`
