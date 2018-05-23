@@ -88,7 +88,7 @@ sortByBirthdays = () => {
 
   render() {
     return (
-      <div className="App">
+      <div className="col-lg-8 offset-lg-2">
         <table style={{width: "100%"}}>
           <tr style={{height: "5vh", backgroundColor: "#a3b2cc"}}>
             <Heading onClick = {this.sortByForeNames}>Forename</Heading>
@@ -98,9 +98,9 @@ sortByBirthdays = () => {
 
           {this.state.personalData.map(i =>
             <tr>
-              <th>{i.foreName}</th>
-              <th>{i.lastName}</th> 
-              <th>{i.birthday}</th>
+              <Row>{i.foreName}</Row>
+              <Row>{i.lastName}</Row> 
+              <Row>{i.birthday}</Row>
             </tr>
            )}
         </table>
@@ -112,8 +112,14 @@ sortByBirthdays = () => {
 export default App;
 
 const Heading = styled.th`
+  text-align: center;
+  
   &:hover{
     cursor: pointer;
     background-color: #afb7c6;
   }
+`
+
+const Row = styled.th`
+  text-align: center;
 `
