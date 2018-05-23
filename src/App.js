@@ -12,10 +12,12 @@ class App extends Component {
     const filteredData = [];
 
     for (let i = 0; i < 200; i++) {
+        var tempObj = generateBirthday();
         personalData.push({
             foreName: generateForeName(),
             lastName: generateLastName(),
-            birthday: generateBirthday()
+            birthday: tempObj.birthday,
+            pesel: tempObj.pesel
         });
     }
 
@@ -25,6 +27,7 @@ class App extends Component {
       areForenamesAsc: false,
       areLastnamesAsc: false,
       areBirthdaysAsc: false,
+      arePeselsAsc: false,
       searchPhrase: ""
      };
 }
@@ -89,6 +92,26 @@ sortByBirthdays = () => {
   })
 }
 
+sortByPesels = () => {
+    var data = this.state.personalData;
+
+  if(!this.state.arePeselsAsc){
+    data.sort(function(obj1, obj2) {
+        return parseInt(obj1.pesel) - parseInt(obj2.pesel);
+    });
+    this.setState({arePeselsAsc: true})
+  }else{
+    data.sort(function(obj1, obj2) {
+        return parseInt(obj2.pesel) - parseInt(obj1.pesel);
+    });
+    this.setState({arePeselsAsc: false})
+  }
+
+  this.setState({
+    personalData: data
+  })
+}
+
 searchingTextChange = e => {
   this.setState({
     searchPhrase: e.target.value
@@ -120,7 +143,7 @@ searchData = () => {
                 <Heading onClick = {this.sortByForeNames}>Forename</Heading>
                 <Heading onClick = {this.sortByLastNames}>Lastname</Heading> 
                 <Heading onClick = {this.sortByBirthdays}>Birthday</Heading>
-                <Heading onClick = {this.sortByBirthdays}>Pesel</Heading>
+                <Heading onClick = {this.sortByPesels}>Pesel</Heading>
               </tr>
             </thead>
             <tbody>
@@ -129,7 +152,7 @@ searchData = () => {
                   <Row>{i.foreName}</Row>
                   <Row>{i.lastName}</Row> 
                   <Row>{i.birthday}</Row>
-                  <Row>{generatePesel(i.birthday)}</Row>
+                  <Row>{i.pesel}</Row>
                 </tr>
               )}
             </tbody>

@@ -11,8 +11,15 @@ export const generateLastName = () => {
 }
 
 export const generateBirthday = () => {
-    var birthday = generateMonth() + "/" + generateDay() + "/" + generateYear();
-    return birthday;
+    var birthdayTemp = generateMonth() + "/" + generateDay() + "/" + generateYear();
+    var peselTemp = generatePesel(birthdayTemp);
+
+    var obj = {
+        birthday: birthdayTemp,
+        pesel: peselTemp
+      };
+
+    return obj;
 }
 
 export const generatePesel = (date) => {
@@ -21,7 +28,7 @@ export const generatePesel = (date) => {
     var month = addZero(date.getMonth() + 1);
     var day = addZero(date.getDate());
 
-    var pesel = day + month + year + generateNumberForPesel();
+    var pesel = year + month + day + generateNumberForPesel();
 
     return pesel;
 }
