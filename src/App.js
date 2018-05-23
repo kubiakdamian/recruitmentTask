@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import "./style.css";
-import { generateForeName, generateBirthday, generateLastName, generatePesel } from './dataGenerator';
+import { generateForeName, generateBirthday, generateLastName } from './dataGenerator';
 import styled from "styled-components"
 
 class App extends Component {
@@ -100,12 +100,12 @@ sortByPesels = () => {
 
   if(!this.state.arePeselsAsc){
 	data.sort(function(obj1, obj2) {
-		return parseInt(obj1.pesel) - parseInt(obj2.pesel);
+		return parseInt(obj1.pesel, 10) - parseInt(obj2.pesel, 10);
 	});
 	this.setState({arePeselsAsc: true})
   }else{
 	data.sort(function(obj1, obj2) {
-		return parseInt(obj2.pesel) - parseInt(obj1.pesel);
+		return parseInt(obj2.pesel, 10) - parseInt(obj1.pesel, 10);
 	});
 	this.setState({arePeselsAsc: false})
   }

@@ -27,10 +27,10 @@ export const generateBirthday = (peselsToValidate) => {
 }
 
 export const generatePesel = (date) => {
-    var date = new Date(date);
-    var year = date.getFullYear().toString();
-    var month = addZero(date.getMonth() + 1);
-    var day = addZero(date.getDate());
+    var newDate = new Date(date);
+    var year = newDate.getFullYear().toString();
+    var month = addZero(newDate.getMonth() + 1);
+    var day = addZero(newDate.getDate());
 
     var pesel = year + month + day + generateNumberForPesel();
 
@@ -40,7 +40,7 @@ export const generatePesel = (date) => {
 const checkIfPeselExists = (peselsToValidate, pesel) => {
     var exists = false;
     for(var i = 0; i < peselsToValidate.length; i++) {
-        if (peselsToValidate[i] == pesel){
+        if (peselsToValidate[i] === pesel){
             exists = true;
         } 
     }
