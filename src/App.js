@@ -21,7 +21,8 @@ class App extends Component {
     this.state = { 
       personalData,
       areForenamesAsc: false,
-      areLastnamesAsc: false
+      areLastnamesAsc: false,
+      areBirthdaysAsc: false
      };
 }
 
@@ -65,6 +66,26 @@ sortByLastNames = () => {
   })
 }
 
+sortByBirthdays = () => {
+  var data = this.state.personalData;
+
+  if(!this.state.areBirthdaysAsc){
+    data.sort(function(a,b){
+      return new Date(b.birthday) - new Date(a.birthday);
+    });
+    this.setState({areBirthdaysAsc: true})
+  }else{
+    data.sort(function(a,b){
+      return new Date(a.birthday) - new Date(b.birthday);
+    });
+    this.setState({areBirthdaysAsc: false})
+  }
+
+  this.setState({
+    personalData: data
+  })
+}
+
   render() {
     return (
       <div className="App">
@@ -72,7 +93,7 @@ sortByLastNames = () => {
           <tr style={{height: "5vh", backgroundColor: "#a3b2cc"}}>
             <Heading onClick = {this.sortByForeNames}>Forename</Heading>
             <Heading onClick = {this.sortByLastNames}>Lastname</Heading> 
-            <Heading>Birthday</Heading>
+            <Heading onClick = {this.sortByBirthdays}>Birthday</Heading>
           </tr>
 
           {this.state.personalData.map(i =>
