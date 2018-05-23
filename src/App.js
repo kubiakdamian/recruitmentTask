@@ -18,16 +18,28 @@ class App extends Component {
         });
     }
 
-    this.state = { personalData };
+    this.state = { 
+      personalData,
+      areForenamesAsc: false,
+      areLastnamesAsc: false
+     };
 }
 
 sortByForeNames = () => {
   var data = this.state.personalData;
 
-  data.sort(function(obj1, obj2) {
-    return obj1.foreName.localeCompare(obj2.foreName);
-  });
-
+  if(!this.state.areForenamesAsc){
+    data.sort(function(obj1, obj2) {
+      return obj1.foreName.localeCompare(obj2.foreName);
+    });
+    this.setState({areForenamesAsc: true})
+  }else{
+    data.sort(function(obj1, obj2) {
+      return obj2.foreName.localeCompare(obj1.foreName);
+    });
+    this.setState({areForenamesAsc: false})
+  }
+  
   this.setState({
     personalData: data
   })
@@ -36,9 +48,17 @@ sortByForeNames = () => {
 sortByLastNames = () => {
   var data = this.state.personalData;
 
-  data.sort(function(obj1, obj2) {
-    return obj1.lastName.localeCompare(obj2.lastName);
-  });
+  if(!this.state.areLastnamesAsc){
+    data.sort(function(obj1, obj2) {
+      return obj1.lastName.localeCompare(obj2.lastName);
+    });
+    this.setState({areLastnamesAsc: true})
+  }else{
+    data.sort(function(obj1, obj2) {
+      return obj2.lastName.localeCompare(obj1.lastName);
+    });
+    this.setState({areLastnamesAsc: false})
+  }
 
   this.setState({
     personalData: data
