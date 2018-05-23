@@ -10,9 +10,13 @@ export const generateLastName = () => {
     return generateName(name);
 }
 
-export const generateBirthday = () => {
+export const generateBirthday = (peselsToValidate) => {
     var birthdayTemp = generateMonth() + "/" + generateDay() + "/" + generateYear();
     var peselTemp = generatePesel(birthdayTemp);
+
+    while(checkIfPeselExists(peselsToValidate, peselTemp)){
+        peselTemp = generatePesel(birthdayTemp)
+    }
 
     var obj = {
         birthday: birthdayTemp,
@@ -31,6 +35,17 @@ export const generatePesel = (date) => {
     var pesel = year + month + day + generateNumberForPesel();
 
     return pesel;
+}
+
+const checkIfPeselExists = (peselsToValidate, pesel) => {
+    var exists = false;
+    for(var i = 0; i < peselsToValidate.length; i++) {
+        if (peselsToValidate[i] == pesel){
+            exists = true;
+        } 
+    }
+
+    return exists;
 }
 
 const generateNumberForPesel = () => {

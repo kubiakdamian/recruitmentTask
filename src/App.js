@@ -6,49 +6,52 @@ import styled from "styled-components"
 
 class App extends Component {
   constructor(props) {
-    super(props);
+	super(props);
 
-    const personalData = [];
-    const filteredData = [];
+	const personalData = [];
+	const filteredData = [];
+	const peselsToValidate = [];
 
-    for (let i = 0; i < 200; i++) {
-        var tempObj = generateBirthday();
-        personalData.push({
-            foreName: generateForeName(),
-            lastName: generateLastName(),
-            birthday: tempObj.birthday,
-            pesel: tempObj.pesel
-        });
-    }
+	for (let i = 0; i < 200; i++) {
+		var tempObj = generateBirthday(peselsToValidate);
+			personalData.push({
+				foreName: generateForeName(),
+				lastName: generateLastName(),
+				birthday: tempObj.birthday,
+				pesel: tempObj.pesel
+			});
 
-    this.state = { 
-      personalData,
-      filteredData,
-      areForenamesAsc: false,
-      areLastnamesAsc: false,
-      areBirthdaysAsc: false,
-      arePeselsAsc: false,
-      searchPhrase: ""
-     };
+			peselsToValidate.push(tempObj.pesel);
+	}
+
+	this.state = { 
+	  personalData,
+	  filteredData,
+	  areForenamesAsc: false,
+	  areLastnamesAsc: false,
+	  areBirthdaysAsc: false,
+	  arePeselsAsc: false,
+	  searchPhrase: ""
+	 };
 }
 
 sortByForeNames = () => {
   var data = this.state.personalData;
 
   if(!this.state.areForenamesAsc){
-    data.sort(function(obj1, obj2) {
-      return obj1.foreName.localeCompare(obj2.foreName);
-    });
-    this.setState({areForenamesAsc: true})
+	data.sort(function(obj1, obj2) {
+	  return obj1.foreName.localeCompare(obj2.foreName);
+	});
+	this.setState({areForenamesAsc: true})
   }else{
-    data.sort(function(obj1, obj2) {
-      return obj2.foreName.localeCompare(obj1.foreName);
-    });
-    this.setState({areForenamesAsc: false})
+	data.sort(function(obj1, obj2) {
+	  return obj2.foreName.localeCompare(obj1.foreName);
+	});
+	this.setState({areForenamesAsc: false})
   }
   
   this.setState({
-    personalData: data
+	personalData: data
   })
 }
 
@@ -56,19 +59,19 @@ sortByLastNames = () => {
   var data = this.state.personalData;
 
   if(!this.state.areLastnamesAsc){
-    data.sort(function(obj1, obj2) {
-      return obj1.lastName.localeCompare(obj2.lastName);
-    });
-    this.setState({areLastnamesAsc: true})
+	data.sort(function(obj1, obj2) {
+	  return obj1.lastName.localeCompare(obj2.lastName);
+	});
+	this.setState({areLastnamesAsc: true})
   }else{
-    data.sort(function(obj1, obj2) {
-      return obj2.lastName.localeCompare(obj1.lastName);
-    });
-    this.setState({areLastnamesAsc: false})
+	data.sort(function(obj1, obj2) {
+	  return obj2.lastName.localeCompare(obj1.lastName);
+	});
+	this.setState({areLastnamesAsc: false})
   }
 
   this.setState({
-    personalData: data
+	personalData: data
   })
 }
 
@@ -76,90 +79,91 @@ sortByBirthdays = () => {
   var data = this.state.personalData;
 
   if(!this.state.areBirthdaysAsc){
-    data.sort(function(obj1, obj2){
-      return new Date(obj1.birthday) - new Date(obj2.birthday);
-    });  
-    this.setState({areBirthdaysAsc: true})
+	data.sort(function(obj1, obj2){
+	  return new Date(obj1.birthday) - new Date(obj2.birthday);
+	});  
+	this.setState({areBirthdaysAsc: true})
   }else{
-    data.sort(function(obj1, obj2){
-      return new Date(obj2.birthday) - new Date(obj1.birthday);
-    });
-    this.setState({areBirthdaysAsc: false})
+	data.sort(function(obj1, obj2){
+	  return new Date(obj2.birthday) - new Date(obj1.birthday);
+	});
+	this.setState({areBirthdaysAsc: false})
   }
 
   this.setState({
-    personalData: data
+	personalData: data
   })
 }
 
 sortByPesels = () => {
-    var data = this.state.personalData;
+	var data = this.state.personalData;
 
   if(!this.state.arePeselsAsc){
-    data.sort(function(obj1, obj2) {
-        return parseInt(obj1.pesel) - parseInt(obj2.pesel);
-    });
-    this.setState({arePeselsAsc: true})
+	data.sort(function(obj1, obj2) {
+		return parseInt(obj1.pesel) - parseInt(obj2.pesel);
+	});
+	this.setState({arePeselsAsc: true})
   }else{
-    data.sort(function(obj1, obj2) {
-        return parseInt(obj2.pesel) - parseInt(obj1.pesel);
-    });
-    this.setState({arePeselsAsc: false})
+	data.sort(function(obj1, obj2) {
+		return parseInt(obj2.pesel) - parseInt(obj1.pesel);
+	});
+	this.setState({arePeselsAsc: false})
   }
 
   this.setState({
-    personalData: data
+	personalData: data
   })
 }
 
 searchingTextChange = e => {
   this.setState({
-    searchPhrase: e.target.value
+	searchPhrase: e.target.value
   });
 }
 
 searchData = () => {
   this.state.filteredData = this.state.personalData.filter(p => {
-    return p.foreName.toLowerCase().includes(this.state.searchPhrase.toLowerCase()) ||
-    p.lastName.toLowerCase().includes(this.state.searchPhrase.toLowerCase()) ||
-    p.birthday.toLowerCase().includes(this.state.searchPhrase.toLowerCase());
+	return p.foreName.toLowerCase().includes(this.state.searchPhrase.toLowerCase()) ||
+	p.lastName.toLowerCase().includes(this.state.searchPhrase.toLowerCase()) ||
+	p.birthday.toLowerCase().includes(this.state.searchPhrase.toLowerCase())||
+	p.pesel.toLowerCase().includes(this.state.searchPhrase.toLowerCase());
   });
 }
 
   render() {
-    this.searchData();
-    return (
-      <div className="col-lg-8 offset-lg-2">
-        <Search className="col-lg-4 offset-lg-4">
-          <input type="text"
-            class="form-control"
-            placeholder="Search"
-            onChange={this.searchingTextChange}/>
-        </Search>
-        <Table>
-          <table class="table table-striped" style={{width: "100%"}}>
-            <thead>
-              <tr style={{backgroundColor: "#a3b2cc"}}>
-                <Heading onClick = {this.sortByForeNames}>Forename</Heading>
-                <Heading onClick = {this.sortByLastNames}>Lastname</Heading> 
-                <Heading onClick = {this.sortByBirthdays}>Birthday</Heading>
-                <Heading onClick = {this.sortByPesels}>Pesel</Heading>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.filteredData.map(i =>
-                <tr>
-                  <Row>{i.foreName}</Row>
-                  <Row>{i.lastName}</Row> 
-                  <Row>{i.birthday}</Row>
-                  <Row>{i.pesel}</Row>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </Table>
-      </div>
-    );
+	this.searchData();
+	return (
+	  <div className="col-lg-8 offset-lg-2">
+		<Search className="col-lg-4 offset-lg-4">
+		  <input type="text"
+			class="form-control"
+			placeholder="Search"
+			onChange={this.searchingTextChange}/>
+		</Search>
+		<Table>
+		  <table class="table table-striped" style={{width: "100%"}}>
+			<thead>
+			  <tr style={{backgroundColor: "#a3b2cc"}}>
+				<Heading onClick = {this.sortByForeNames}>Forename</Heading>
+				<Heading onClick = {this.sortByLastNames}>Lastname</Heading> 
+				<Heading onClick = {this.sortByBirthdays}>Birthday</Heading>
+				<Heading onClick = {this.sortByPesels}>Pesel</Heading>
+			  </tr>
+			</thead>
+			<tbody>
+			  {this.state.filteredData.map(i =>
+				<tr>
+				  <Row>{i.foreName}</Row>
+				  <Row>{i.lastName}</Row> 
+				  <Row>{i.birthday}</Row>
+				  <Row>{i.pesel}</Row>
+				</tr>
+			  )}
+			</tbody>
+		  </table>
+		</Table>
+	  </div>
+	);
   }
 }
 
@@ -169,8 +173,8 @@ const Heading = styled.th`
   text-align: center;
 
   &:hover{
-    cursor: pointer;
-    background-color: #afb7c6;
+	cursor: pointer;
+	background-color: #afb7c6;
   }
 `
 
