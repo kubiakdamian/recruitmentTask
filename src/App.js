@@ -70,13 +70,13 @@ sortByBirthdays = () => {
   var data = this.state.personalData;
 
   if(!this.state.areBirthdaysAsc){
-    data.sort(function(a,b){
-      return new Date(b.birthday) - new Date(a.birthday);
-    });
+    data.sort(function(obj1, obj2){
+      return new Date(obj1.birthday) - new Date(obj2.birthday);
+    });  
     this.setState({areBirthdaysAsc: true})
   }else{
-    data.sort(function(a,b){
-      return new Date(a.birthday) - new Date(b.birthday);
+    data.sort(function(obj1, obj2){
+      return new Date(obj2.birthday) - new Date(obj1.birthday);
     });
     this.setState({areBirthdaysAsc: false})
   }
