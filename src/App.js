@@ -89,20 +89,26 @@ sortByBirthdays = () => {
   render() {
     return (
       <div className="col-lg-8 offset-lg-2">
-        <table style={{width: "100%"}}>
-          <tr style={{height: "5vh", backgroundColor: "#a3b2cc"}}>
-            <Heading onClick = {this.sortByForeNames}>Forename</Heading>
-            <Heading onClick = {this.sortByLastNames}>Lastname</Heading> 
-            <Heading onClick = {this.sortByBirthdays}>Birthday</Heading>
-          </tr>
-
-          {this.state.personalData.map(i =>
-            <tr>
-              <Row>{i.foreName}</Row>
-              <Row>{i.lastName}</Row> 
-              <Row>{i.birthday}</Row>
+      <Search className="col-lg-4 offset-lg-4">
+        <input type="text" class="form-control" placeholder="Search"></input>
+      </Search>
+        <table class="table table-striped" style={{width: "100%"}}>
+          <thead>
+            <tr style={{backgroundColor: "#a3b2cc"}}>
+              <Heading onClick = {this.sortByForeNames}>Forename</Heading>
+              <Heading onClick = {this.sortByLastNames}>Lastname</Heading> 
+              <Heading onClick = {this.sortByBirthdays}>Birthday</Heading>
             </tr>
-           )}
+          </thead>
+          <tbody>
+            {this.state.personalData.map(i =>
+              <tr>
+                <Row>{i.foreName}</Row>
+                <Row>{i.lastName}</Row> 
+                <Row>{i.birthday}</Row>
+              </tr>
+            )}
+          </tbody>
         </table>
       </div>
     );
@@ -113,7 +119,7 @@ export default App;
 
 const Heading = styled.th`
   text-align: center;
-  
+
   &:hover{
     cursor: pointer;
     background-color: #afb7c6;
@@ -122,4 +128,9 @@ const Heading = styled.th`
 
 const Row = styled.th`
   text-align: center;
+`
+
+const Search = styled.div`
+  margin-top: 3vh;
+  margin-bottom: 3vh;
 `
