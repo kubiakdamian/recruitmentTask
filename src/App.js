@@ -9,6 +9,7 @@ class App extends Component {
     super(props);
 
     const personalData = [];
+    const filteredData = [];
 
     for (let i = 0; i < 200; i++) {
         personalData.push({
@@ -20,9 +21,11 @@ class App extends Component {
 
     this.state = { 
       personalData,
+      filteredData,
       areForenamesAsc: false,
       areLastnamesAsc: false,
-      areBirthdaysAsc: false
+      areBirthdaysAsc: false,
+      searchPhrase: ""
      };
 }
 
@@ -86,11 +89,29 @@ sortByBirthdays = () => {
   })
 }
 
+searchingTextChange = e => {
+  this.setState({
+    searchPhrase: e.target.value
+  });
+}
+
+searchData = () => {
+  this.state.filteredData = this.state.personalData.filter(p => {
+    return p.foreName.toLowerCase().includes(this.state.searchPhrase.toLowerCase()) ||
+    p.lastName.toLowerCase().includes(this.state.searchPhrase.toLowerCase()) ||
+    p.birthday.toLowerCase().includes(this.state.searchPhrase.toLowerCase());
+  });
+}
+
   render() {
+    this.searchData();
     return (
       <div className="col-lg-8 offset-lg-2">
       <Search className="col-lg-4 offset-lg-4">
-        <input type="text" class="form-control" placeholder="Search"></input>
+        <input type="text"
+          class="form-control"
+          placeholder="Search"
+          onChange={this.searchingTextChange}/>
       </Search>
         <table class="table table-striped" style={{width: "100%"}}>
           <thead>
@@ -101,7 +122,7 @@ sortByBirthdays = () => {
             </tr>
           </thead>
           <tbody>
-            {this.state.personalData.map(i =>
+            {this.state.filteredData.map(i =>
               <tr>
                 <Row>{i.foreName}</Row>
                 <Row>{i.lastName}</Row> 
